@@ -11,7 +11,7 @@ const (
 	db       = "f1"
 	username = "admin"
 	password = "admin"
-	addr     = "192.168.5.7:8089"
+	addr     = "influxdb:8089"
 )
 
 // Point is a struct with data for sending to InfluxDB

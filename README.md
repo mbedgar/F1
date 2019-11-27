@@ -1,4 +1,4 @@
-A fork of rafaelreinert/F1 so I could see if I could dockerise it and then run this with influxdb and grafana all in containers. Primary driver is to have it up on the wall in my work Christmass party when we have a sim rig set up on a time trial in F1 2017.
+A fork of rafaelreinert/F1 so I could see if I could dockerise it and then run this with influxdb and grafana all in containers. Primary driver is to have it up on the wall in my work Christmas party where we have a sim rig set up on a time trial in F1 2017.
 
 I have included the json for my dashboard in repo as well as a starting point for anyone who want to have a look.
 

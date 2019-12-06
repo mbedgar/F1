@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"time"
-	"fmt"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 )
@@ -22,25 +21,13 @@ type Point struct {
 }
 
 func influxDBSender(ch chan Point) {
-	func connectdb(){
-		for try := 1;;try++ {
-			c, err := client.NewUDPClient(client.UDPConfig{
-				Addr: addr,
-			})
-		
-			if err != nil {
-				fmt.Println("InfluxDB not found retrying...")
-				time.Sleep(5 * time.Second)
-			} else if try > 12 {
-				log.Fatal(err)
-			} else if err == nil{
-				fmt.Println("Connected to InfluxDB...")
-				break
-			}
-		}
-		return c
+
+	c, err := client.NewUDPClient(client.UDPConfig{
+		Addr: addr,
+	})
+	if err != nil {
+		log.Fatal(err)
 	}
-	c := connectdb()
 	defer c.Close()
 
 	for p := range ch {

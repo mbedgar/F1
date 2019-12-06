@@ -8,7 +8,8 @@ import (
 )
 
 func main() {
-	fmt.Println("Starting the server")
+	fmt.Println("Waiting 20 seconds for influxDB before starting the server...")
+	time.Sleep(20 * time.Second)
 	laddr, err := net.ResolveUDPAddr("udp", "0.0.0.0:20777")
 	if err != nil {
 		log.Fatal(err)

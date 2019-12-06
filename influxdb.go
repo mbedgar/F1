@@ -22,7 +22,9 @@ type Point struct {
 }
 
 func influxDBSender(ch chan Point) {
-	
+	c, err := client.NewUDPClient(client.UDPConfig{
+			Addr: addr,
+	})
 	for try := 1;;try++ {
 		c, err := client.NewUDPClient(client.UDPConfig{
 			Addr: addr,

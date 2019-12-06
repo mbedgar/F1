@@ -22,24 +22,25 @@ type Point struct {
 }
 
 func influxDBSender(ch chan Point) {
-	c, err := client.NewUDPClient(client.UDPConfig{
-			Addr: addr,
-	})
-	for try := 1;;try++ {
-		c, err := client.NewUDPClient(client.UDPConfig{
-			Addr: addr,
-		})
-	
-		if err != nil {
-			fmt.Println("InfluxDB not found retrying...")
-			time.Sleep(5 * time.Second)
-		} else if try > 12 {
-			log.Fatal(err)
-		} else if err == nil{
-			fmt.Println("Connected to InfluxDB...")
-			break
+	func connectdb(){
+		for try := 1;;try++ {
+			c, err := client.NewUDPClient(client.UDPConfig{
+				Addr: addr,
+			})
+		
+			if err != nil {
+				fmt.Println("InfluxDB not found retrying...")
+				time.Sleep(5 * time.Second)
+			} else if try > 12 {
+				log.Fatal(err)
+			} else if err == nil{
+				fmt.Println("Connected to InfluxDB...")
+				break
+			}
 		}
+		return c
 	}
+	c := connectdb()
 	defer c.Close()
 
 	for p := range ch {

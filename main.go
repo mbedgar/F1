@@ -8,19 +8,23 @@ import (
 )
 
 func main() {
-	fmt.Println("Waiting 20 seconds for influxDB before starting the server...")
-	time.Sleep(20 * time.Second)
+	fmt.Println("Starting the collector")
+	ResolveDB:
 	laddr, err := net.ResolveUDPAddr("udp", "0.0.0.0:20777")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("Cannot resolve Influxdb. Retrying...")
+		time.Sleep(1 * time.Second)
+		goto ResolveDB
 	}
-
+	ConectDB:
 	con, err := net.ListenUDP("udp", laddr)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("InfluxDB unavailable. Retrying...")
+		time.Sleep(1 * time.Second)
+		goto ConnectDB
 	}
 	defer con.Close()
-	fmt.Println("Server started")
+	fmt.Println("Collector started")
 	buf := make([]byte, 1289)
 
 	ch := make(chan Point, 1000)

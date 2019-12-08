@@ -2,6 +2,7 @@ package main
 
 import (
 //	"log"
+	"fmt"
 	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"

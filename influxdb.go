@@ -22,13 +22,15 @@ type Point struct {
 }
 
 func influxDBSender(ch chan Point) {
-
+	ConnectUDP:
 	c, err := client.NewUDPClient(client.UDPConfig{
 		Addr: addr,
 	})
 	if err != nil {
 		fmt.Println(err)
 //		log.Fatal(err)
+		time.Sleep(2 * time.Second)
+		goto ConnectUDP
 	}
 	defer c.Close()
 

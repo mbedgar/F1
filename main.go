@@ -35,11 +35,13 @@ func main() {
 	for {
 		_, err := con.Read(buf)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+			//log.Fatal(err)
 		}
 		tp, err := NewTelemetryPack(buf)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+			//log.Fatal(err)
 		}
 		p := Point{tp: tp, t: time.Now()}
 		ch <- p

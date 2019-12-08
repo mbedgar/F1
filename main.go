@@ -16,7 +16,7 @@ func main() {
 		time.Sleep(1 * time.Second)
 		goto ResolveDB
 	}
-	ConectDB:
+	ConnectDB:
 	con, err := net.ListenUDP("udp", laddr)
 	if err != nil {
 		fmt.Println("InfluxDB unavailable. Retrying...")

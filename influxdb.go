@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+//	"log"
 	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"
@@ -26,7 +26,8 @@ func influxDBSender(ch chan Point) {
 		Addr: addr,
 	})
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+//		log.Fatal(err)
 	}
 	defer c.Close()
 
@@ -35,15 +36,18 @@ func influxDBSender(ch chan Point) {
 			Database: db,
 		})
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+//			log.Fatal(err)
 		}
 		pt, err := client.NewPoint("TelemetryPack", nil, p.tp.ToMap(), p.t)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+//			log.Fatal(err)
 		}
 		bp.AddPoint(pt)
 		if err := c.Write(bp); err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
+//			log.Fatal(err)
 		}
 
 	}

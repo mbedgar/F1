@@ -15,16 +15,8 @@ go build
 ./F1
 ```
 # Docker
-```
-docker run -d --rm --name grafana -p 3000:3000 -v C:\Docker\Volumes\grafana:/var/lib/grafana grafana/grafana
-```
-```
-docker run -d --rm --name influxdb -p 8089:8089/udp -p 8086:8086 -e INFLUXDB_DB=f1 -e INFLUXDB_UDP_ENABLED=true -v C:\Docker\Volumes\influx\config:\etc\influxdb -v C:\Docker\Volumes\influx\lib:/var/lib/influxdb  influxdb
-```
+
 ```
 docker run -d --rm --name F1GO -p 20777:20777/udp csmax/f1go
 ```
-not sure if this is required
-```
-invoke-webrequest -Method POST -Uri http://localhost:8089/query -Body "q=CREATE DATABASE f1"
-```
+ or use the included docker compose file

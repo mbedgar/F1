@@ -37,7 +37,7 @@ services:
 
 #docker run -d --rm --name F1GO -p 20777:20777/udp csmax/f1go
   F1GO:
-    image: csmax/f1go:dev
+    image: csmax/f1go
 #    network_mode: bridge
     depends_on:
       - "grafana"

@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+#docker run -d --rm --name influxdb -p 8089:8089/udp -p 8086:8086 -e INFLUXDB_DB=f1 -e INFLUXDB_UDP_ENABLED=true -v C:\Users\maxed\OneDrive\Documents\Docker\Volumes\influx\config:\etc\influxdb -v C:\Users\maxed\OneDrive\Documents\Docker\Volumes\influx\lib:/var/lib/influxdb  influxdb
+
+  influxdb:
+    image: influxdb:latest
+#    network_mode: bridge
+    ports:
+    - 8089:8089/udp
+    - 8086:8086
+    - 8088:8088
+    environment:
+    - INFLUXDB_DB=f1
+    - INFLUXDB_UDP_ENABLED=true
+    - INFLUXDB_UDP_DATABASE=f1
+    - INFLUXDB_UDP_BIND_ADDRESS=:8089
+    - INFLUXDB_UDP_0_BATCH_SIZE=5000
+    - INFLUXDB_UDP_BATCH_SIZE=0
+    volumes:
+    - C:\Docker\Volumes\influx\config:/etc/influxdb
+    - C:\Docker\Volumes\influx\lib:/var/lib/influxdb
+    container_name: "influxdb"
+
+#docker run -d --rm --name grafana -p 3000:3000 grafana/grafana
+  grafana:
+    image: grafana/grafana:latest
+#    network_mode: bridge
+    ports:
+    - 3000:3000
+    depends_on:
+      - "influxdb"
+    environment:
+    - GF_SECURITY_ADMIN_PASSWORD=f1
+    volumes:
+    - C:\Docker\Volumes\grafana\lib:/var/lib/grafana
+    container_name: "grafana"
+
+#docker run -d --rm --name F1GO -p 20777:20777/udp csmax/f1go
+  F1GO:
+    image: csmax/f1go
+#    network_mode: bridge
+    depends_on:
+      - "grafana"
+    ports:
+    - 20777:20777/udp
+    container_name: "F1GO"
+    restart: always
